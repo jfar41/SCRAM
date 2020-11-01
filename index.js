@@ -2,7 +2,10 @@ const { ApolloServer } = require('apollo-server');
 const gql = require('graphql-tag');
 const mongoose = require('mongoose'); //mongoose is the orm(object relational mapper) library 
                                       //which lets us interface with the mongodb database
+                                      //allows us to link data models also
+//^dependency imports \/relative imports
 
+const Post = require('./models/Post');
 const { MONGODB } = require('./config.js');     //we destructured MONGODB by having it in {}         
 
 const typeDefs = gql`
