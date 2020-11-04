@@ -10,7 +10,8 @@ const { MONGODB } = require('./config.js');     //we destructured MONGODB by hav
 
 const server = new ApolloServer({
     typeDefs,
-    resolvers
+    resolvers,
+    context: ({ req }) => ({ req })     //here taking request body, forwarding to context, and now can access request body in context 
 });
 
 mongoose
