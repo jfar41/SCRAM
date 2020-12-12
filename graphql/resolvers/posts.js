@@ -1,4 +1,5 @@
 const { AuthenticationError, UserInputError } = require('apollo-server');
+const { argsToArgsConfig } = require('graphql/type/definition');
 
 const Post = require('../../models/Post');
 const checkAuth = require('../../util/check-auth');
@@ -29,6 +30,11 @@ module.exports = {
     Mutation: {
         async createPost(_, { body }, context){     //bc of what did in index.js, this context now has request body so we can access header and determine user authentication
             const user = checkAuth(context);
+
+            if (args.body.trim() === '') {
+                throw new Error('Post body must not be empty');
+            }
+            
             console.log(user)
             const newPost = new Post({
                 body,       //this is ok since we already destructured body above
