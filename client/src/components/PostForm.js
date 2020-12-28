@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
 
 import { useForm } from '../util/hooks';
+import { FETCH_POSTS_QUERY } from '../util/graphql';
 
 function PostForm() {
     const { values, onChange, onSubmit } = useForm(createPostCallback, {
@@ -12,8 +13,26 @@ function PostForm() {
 
     const [ createPost, { error }]= useMutation(CREATE_POST_MUTATION, {
         variables: values,
-        update(_, result){
-            console.log(result)
+        update(proxy, result){
+            const data = proxy.readQuery({
+                query: FETCH_POSTS_QUERY
+            });
+            console.log(JSON.stringify(values));
+            // console.log('This is "result" in PostForm.js: '+ JSON.stringify(result))
+            // console.log('This is data: '+ JSON.stringify(data))
+            // console.log('This is result.data.createPost: '+ JSON.stringify(result.data.createPost))
+            // console.log('This is data.getPosts: '+ JSON.stringify(data.getPosts))
+
+            // data.getPosts = [result.data.createPost, ...data.getPosts];
+
+            // data = [result.data.createPost, ...data.getPosts];
+            const myNewPost = result.data.createPost
+            proxy.writeQuery({ query: FETCH_POSTS_QUERY, 
+                data: {
+                    getPosts: [myNewPost, ...data.getPosts
+                    ],
+                },
+            });
             values.body = ''
         }
     })
@@ -43,17 +62,17 @@ function PostForm() {
 const CREATE_POST_MUTATION = gql`
 mutation createPost($body: String!){
     createPost(body: $body){
-        id body createAt username
+        id body createdAt username
         likes {
-            id username createAt
+            id username createdAt
         }
         likeCount
         comments{
-            id body username createAt
+            id body username createdAt
         }
         commentCount
     }
 }
-`
+`;
 
 export default PostForm;

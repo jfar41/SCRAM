@@ -31,7 +31,7 @@ module.exports = {
         async createPost(_, { body }, context){     //bc of what did in index.js, this context now has request body so we can access header and determine user authentication
             const user = checkAuth(context);
 
-            if (args.body.trim() === '') {
+            if (body.trim() === '') {
                 throw new Error('Post body must not be empty');
             }
             
