@@ -1,6 +1,6 @@
 # SCRAM! A social-media-app
 
-### Using the MERNG stack, I coded up backend and frontend code to create a social-media-app \n that registers users, provides user authentication, lists all posts in a global feed, ability to comment/like posts.
+### Using the MERNG stack, I coded up backend and frontend code to create a social-media-app  that registers users, provides user authentication, lists all posts in a global feed, ability to comment/like posts.
 ![Picture of WebApp](https://i.imgur.com/VPVbmO0.png)
 
 # Key Takeaways:
@@ -14,7 +14,7 @@
 # Next steps:
 ### Strengthen my understanding of Apollo by creating a followup project
 
-## Screenshots
+# Screenshots
 ### Picture of some of the verification checks when attempting to signup
 ![Picture of alert when signing up with credentials already seen by system](https://i.imgur.com/CAAejZU.png)
 ### When comment is clicked comments are visible
